@@ -1,10 +1,13 @@
-import {Button, StyleSheet, Touchable} from 'react-native';
+import {Button, Pressable, StyleSheet, Touchable} from 'react-native';
 
 import EditScreenInfo from '@/components/EditScreenInfo';
 import {Text, View} from '@/components/Themed';
-import {useState} from "react";
+import React, {useState} from "react";
 import {QueryClient, QueryClientProvider, useQuery} from "@tanstack/react-query";
 import {sum} from "@/lib";
+import {Link} from "expo-router";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Colors from "@/constants/Colors";
 
 const Thingy = () => {
   const thingy = useQuery({
@@ -21,6 +24,7 @@ export default function TabTwoScreen() {
 
   return (
     <QueryClientProvider client={client}>
+
       <View style={styles.container}>
         <Text style={styles.title}>Tab Two</Text>
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)"/>
@@ -29,9 +33,13 @@ export default function TabTwoScreen() {
 
         <Text>{sum(10, 12)}</Text>
 
+        <Link href="/(tabs)/two/modal" asChild>
+          <Button title="CLICK ME"/>
+        </Link>
+
         <Button onPress={() => client.refetchQueries()} title="Click me"/>
 
-        <EditScreenInfo path="app/(tabs)/two.tsx"/>
+        <EditScreenInfo path="app/(tabs)/index.tsx"/>
       </View>
     </QueryClientProvider>
   );
